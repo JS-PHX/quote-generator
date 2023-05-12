@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Stoicism</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="/imgs/icon.png" type="image/png">
+</head>
+<body>
+    <div class="button-container">
+        <p id="quote"></p>
+        <p id="author"></p>
+        <button id="refresh">New Quote</button>
+    </div>
+  
+      <script>
+        const url = 'https://api.themotivate365.com/stoic-quote';
+        const images = [
+            '/imgs/pic1.jpg', 
+            '/imgs/pic2.jpg', 
+            '/imgs/pic3.jpg', 
+            '/imgs/pic4.jpg', 
+            '/imgs/pic5.jpg', 
+            '/imgs/pic6.jpg', 
+            '/imgs/pic7.jpg', 
+            '/imgs/pic8.jpg',
+            '/imgs/pic9.jpg',
+            '/imgs/pic10.jpg',  
+            '/imgs/pic11.jpg',  
+            '/imgs/pic12.jpg',  
+            '/imgs/pic13.jpg',  
+            '/imgs/pic14.jpg',  
+            '/imgs/pic15.jpg',  
+            '/imgs/pic16.jpg',  
+            '/imgs/pic17.jpg',  
+            '/imgs/pic18.jpg',  
+            '/imgs/pic19.jpg',  
+            '/imgs/pic20.jpg',  
+        ];
+        function refreshQuote() {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const quote = data['quote'].replace(/[^\w\s]/gi, '');
+            const author = data['author'];
+            const quoteText = `${quote}`;
+            const quoteAuthor = author ? `- ${author}` : '- Anonymous';
+            document.getElementById('quote').classList.remove('show');
+            document.getElementById('author').classList.remove('show');
+            setTimeout(() => {
+            document.getElementById('quote').textContent = quoteText;
+            document.getElementById('author').textContent = quoteAuthor;
+            document.body.style.backgroundImage = `url(${images[Math.floor(Math.random() * images.length) % images.length]})`;
+            document.getElementById('quote').classList.add('show');
+            document.getElementById('author').classList.add('show');
+            }, 100);
+            }).catch(error => console.error(error));
+            }
+
+            refreshQuote();
+
+            // Add a click event listener to the refresh button
+            const refreshButton = document.getElementById('refresh');
+            refreshButton.addEventListener('click', () => {
+            refreshQuote();
+            refreshButton.style.transform = 'rotate(360deg)';
+            });
+
+            document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 32) {
+                refreshQuote();
+            }
+            });
+
+            
+
+
+      </script>
+    </body>
+  </html>
