@@ -7,12 +7,12 @@
     <link rel="shortcut icon" href="/imgs/icon.png" type="image/png">
 </head>
 <body>
-    <div class="button-container">
+    <div class="button-container quote-container">
         <p id="quote"></p>
         <p id="author"></p>
         <button id="refresh">New Quote</button>
     </div>
-  
+        
       <script>
         const url = 'https://api.themotivate365.com/stoic-quote';
         const images = [
@@ -50,7 +50,16 @@
             setTimeout(() => {
             document.getElementById('quote').textContent = quoteText;
             document.getElementById('author').textContent = quoteAuthor;
-            document.body.style.backgroundImage = `url(${images[Math.floor(Math.random() * images.length) % images.length]})`;
+            const img = new Image();
+                img.onload = function() {
+                document.body.style.backgroundImage = `url(${images[Math.floor(Math.random() * images.length)]})`;
+                document.getElementById('quote').classList.remove('show');
+                setTimeout(() => {
+                    document.getElementById('quote').classList.add('show');
+                }, 100);
+                document.querySelector('.quote-container').classList.add('show');
+                };
+                img.src = images[Math.floor(Math.random() * images.length)];
             document.getElementById('quote').classList.add('show');
             document.getElementById('author').classList.add('show');
             }, 100);
