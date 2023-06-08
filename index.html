@@ -38,7 +38,7 @@
             '/imgs/pic20.jpg',  
         ];
         function refreshQuote() {
-    fetch(url)
+        fetch(url)
         .then(response => response.json())
         .then(data => {
             const quote = data['quote'].replace(/[^\w\s]/gi, '');
