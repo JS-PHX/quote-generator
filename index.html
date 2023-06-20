@@ -16,72 +16,84 @@
       <script>
         const url = 'https://api.themotivate365.com/stoic-quote';
         const images = [
-            '../imgs/pic1.jpg', 
-            '../imgs/pic2.jpg', 
-            '../imgs/pic3.jpg', 
-            '../imgs/pic4.jpg', 
-            '../imgs/pic5.jpg', 
-            '../imgs/pic6.jpg', 
-            '../imgs/pic7.jpg', 
-            '../imgs/pic8.jpg',
-            '../imgs/pic9.jpg',
-            '../imgs/pic10.jpg',  
-            '../imgs/pic11.jpg',  
-            '../imgs/pic12.jpg',  
-            '../imgs/pic13.jpg',  
-            '../imgs/pic14.jpg',  
-            '../imgs/pic15.jpg',  
-            '../imgs/pic16.jpg',  
-            '../imgs/pic17.jpg',  
-            '../imgs/pic18.jpg',  
-            '../imgs/pic19.jpg',  
-            '../imgs/pic20.jpg',  
+            './imgs/pic1.jpg', 
+            './imgs/pic2.jpg', 
+            './imgs/pic3.jpg', 
+            './imgs/pic4.jpg', 
+            './imgs/pic5.jpg', 
+            './imgs/pic6.jpg', 
+            './imgs/pic7.jpg', 
+            './imgs/pic8.jpg',
+            './imgs/pic9.jpg',
+            './imgs/pic10.jpg',  
+            './imgs/pic11.jpg',  
+            './imgs/pic12.jpg',  
+            './imgs/pic13.jpg',  
+            './imgs/pic14.jpg',  
+            './imgs/pic15.jpg',  
+            './imgs/pic16.jpg',  
+            './imgs/pic17.jpg',  
+            './imgs/pic18.jpg',  
+            './imgs/pic19.jpg',  
+            './imgs/pic20.jpg',  
         ];
         function refreshQuote() {
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const quote = data['quote'].replace(/[^\w\s]/gi, '');
-            const author = data['author'];
-            const quoteText = `${quote}`;
-            const quoteAuthor = author ? `- ${author}` : '- Anonymous';
-            document.getElementById('quote').classList.remove('show');
-            document.getElementById('author').classList.remove('show');
-            setTimeout(() => {
-            document.getElementById('quote').textContent = quoteText;
-            document.getElementById('author').textContent = quoteAuthor;
-            const img = new Image();
-                img.onload = function() {
-                document.body.style.backgroundImage = `url(${images[Math.floor(Math.random() * images.length)]})`;
-                document.getElementById('quote').classList.remove('show');
-                setTimeout(() => {
-                    document.getElementById('quote').classList.add('show');
-                }, 100);
-                document.querySelector('.quote-container').classList.add('show');
-                };
-                img.src = images[Math.floor(Math.random() * images.length)];
-            document.getElementById('quote').classList.add('show');
-            document.getElementById('author').classList.add('show');
-            }, 100);
-            }).catch(error => console.error(error));
-            }
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const quote = data['quote'].replace(/[^\w\s]/gi, '');
+      const author = data['author'];
+      const quoteText = `${quote}`;
+      const quoteAuthor = author ? `- ${author}` : '- Anonymous';
+      document.getElementById('quote').classList.remove('show');
+      document.getElementById('author').classList.remove('show');
 
-            refreshQuote();
+      const randomImage = images[Math.floor(Math.random() * images.length)];
+      const quoteContainer = document.querySelector('.quote-container');
+      const img = new Image();
 
-            // Add a click event listener to the refresh button
-            const refreshButton = document.getElementById('refresh');
-            refreshButton.addEventListener('click', () => {
-            refreshQuote();
-            refreshButton.style.transform = 'rotate(360deg)';
-            });
+      img.onload = function() {
+        document.body.classList.add('fade-out');
+        document.body.classList.add('blackout');
 
-            document.addEventListener('keydown', function(event) {
-            if (event.keyCode === 32) {
+        setTimeout(() => {
+          document.body.style.backgroundImage = `url(${randomImage})`;
+          document.body.classList.remove('fade-out');
+          document.body.classList.remove('blackout');
+          document.body.classList.add('fade-in');
+        }, 500);
+
+        setTimeout(() => {
+          document.body.classList.remove('fade-in');
+          document.getElementById('quote').textContent = quoteText;
+          document.getElementById('author').textContent = quoteAuthor;
+          quoteContainer.classList.add('show');
+          document.getElementById('quote').classList.add('show');
+          document.getElementById('author').classList.add('show');
+        }, 1000);
+      };
+
+      img.src = randomImage;
+    })
+    .catch(error => console.error(error));
+}
+
+        refreshQuote();
+
+        // Add a click event listener to the refresh button
+        const refreshButton = document.getElementById('refresh');
+        refreshButton.addEventListener('click', () => {
+        refreshQuote();
+        // refreshButton.style.transform = 'rotate(360deg)';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 32 && event.target === document.body) {
+                event.preventDefault();
                 refreshQuote();
             }
             });
 
-            
 
 
       </script>

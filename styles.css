@@ -4,6 +4,8 @@
 }
 
 body {
+    transition: background-image 0.5s ease-in-out;
+    opacity: 1;
     background-color: black;
     background-size: cover;
     background-position: center center;
@@ -13,6 +15,7 @@ body {
     transition-duration: 1s;
     transition-timing-function: ease-in-out; */
     backdrop-filter: blur(5px);
+    transition: background-image 0.5s ease-in-out;
 }
 
 img {
@@ -27,18 +30,22 @@ img {
 #refresh {
     background-color: rgba(0, 136, 255, 0);
     color: white;
-    border: 1px solid rgb(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0);
     cursor: pointer;
+    margin: auto;
     margin-top: 25rem;
     padding: 1rem;
     transition: all 1s ease-in-out;
     position: absolute;
     top: 25rem;
-    /* left: 50%; */
+    left: 50%;
     transform: translateX(-50%);
     text-transform: uppercase;
-    opacity: .25;
+    opacity: 0.25;
+    justify-content: center;
+    align-items: center;
   }
+  
 #refresh:hover {
     border: 1px solid rgb(255, 255, 255, .25);
     transition: all .2s ease-in-out;
@@ -46,7 +53,7 @@ img {
     opacity: .75;
 }
 #refresh:active {
-    backdrop-filter: invert(1);
+    backdrop-filter: grayscale(1);
     transition: all 1s ease-in-out;
 }
   
@@ -64,7 +71,7 @@ div {
 }
 
 p {
-    font-size: 56px;
+    font-size: 48px;
     text-shadow: 1px 1px black;
     font-weight: bolder;
     color: white;
@@ -101,6 +108,37 @@ p {
   #quote, #author {
     opacity: 0;
   }
+  
+  .fade-out {
+    opacity: 1;
+    transition: all 1s;
+  }
+  
+  .fade-in {
+    opacity: 1;
+    transition: all 2.5s;
+    filter: grayscale(1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .blackout {
+    background-color: black;
+    filter: grayscale(.75);
+    opacity: 1;
+    backdrop-filter: blur(10px);
+    transition: all 1s;
+  }
+
+      
+  .quote-container {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .quote-container.show {
+    opacity: 1;
+  }
+  
   
 
 
